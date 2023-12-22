@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Fossil Highlight",
+  "version": "1.0",
+
+  "description": "Highlights code in fossil SCM, client side.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "vendor/highlight.min.js",
+        "fossil-highlight.js"
+      ],
+      "css": [
+        "vendor/styles/github.min.css"
+      ]
+    }
+  ]
+}
+
