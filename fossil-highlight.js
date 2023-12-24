@@ -6,6 +6,7 @@ const map = {
   cmake : [ 'cmake' ],
   js : [ 'js' ],
   bash : [ 'bash', 'sh' ],
+  txt : [ 'txt' ],
 };
 
 function inverse(dictionary) {
@@ -36,9 +37,24 @@ if (footers.length == 1) {
       if (sources.length > 0) {
         nodes = Array.from(sources);
         nodes.forEach(node => {
-          // Left below for debug.
-          // node.setAttribute('data-highlighted', 'no');
-          hljs.highlightElement(node);
+          // Add an exception for CMakeLists.txt confused with plaintext.txt.
+          // In general, if it's a .txt, we turn on auto-detect.
+          if (key == 'txt') {
+            // Remove `.txt`
+            node.classList.remove(cls);
+            const options = [ 'cmake', 'txt' ];
+            const hlauto = hljs.highlightAuto(node.innerText, options)
+            if (('language' in hlauto)) {
+              const detected = 'language-' + hlauto.language;
+              node.classList.add(detected);
+              hljs.highlightElement(node);
+            }
+          } else {
+
+            // Left below for debug.
+            // node.setAttribute('data-highlighted', 'no');
+            hljs.highlightElement(node);
+          }
         })
       }
     });
