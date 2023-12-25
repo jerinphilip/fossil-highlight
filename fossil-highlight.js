@@ -47,6 +47,13 @@ if (footers.length == 1) {
             }
           };
 
+          const canonicalize = function(node) {
+            node.classList.remove(cls);
+            canonical = 'language-' + value;
+            node.classList.add(canonical);
+          };
+
+          canonicalize(node);
           if (key == 'txt') {
             // Remove `.txt`
             node.classList.remove(cls);
